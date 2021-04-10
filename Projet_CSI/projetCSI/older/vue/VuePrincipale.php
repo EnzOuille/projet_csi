@@ -16,6 +16,8 @@ class VuePrincipale
         $this->app = Slim::getInstance();
         $this->lienAfficherProduits = $this->app->urlFor('afficher_produits');
         $this->lienAccueil = $this->app->urlFor('page_index');
+        $this->lienAfficherUneListe = $this->app->urlFor('demander_une_liste');
+        $this->lienCreerListe = $this->app->urlFor('creer_liste');
 
         $this->URLimages = $this->app->request->getRootUri() . '/img/';
         $this->URLbootstrapCSS = $this->app->request->getRootUri() . '/public/bootstrap.css';
@@ -41,7 +43,7 @@ class VuePrincipale
                 <header>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow    ">
                   <div class="container">
-                    <a class="navbar-brand" href="$this->lienAccueil">Projet CSI</a>
+                    <a class="navbar-brand" href="$this->lienAccueil">My Wish List</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                         </button>
@@ -54,6 +56,7 @@ class VuePrincipale
                           <a class="nav-link" href="$this->lienAfficherProduits">Afficher les produits</a>
                         </li>
                     <li class="nav-item">
+                    <a class="nav-link" href="$this->lienCreerListe">Creer une liste de souhait</a>
                   </li>
                       </ul>
                     </div>
@@ -79,5 +82,14 @@ END;
     public function getApp()
     {
         return $this->app;
+    }
+
+    /**
+     * permet d'obtenir l'url vers les images
+     * @return string
+     */
+    public function getURLimages(): string
+    {
+        return $this->URLimages;
     }
 }

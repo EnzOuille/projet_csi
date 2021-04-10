@@ -5,9 +5,9 @@ use projet\modele\Item;
 
 class VueItem extends VuePrincipale{
 
-    private $urlRevenirListe,$item;
+    private $produits;
 
-    public function __construct($item)
+    public function __construct($produits)
     {
         parent::__construct();
         $this->item = $item;
