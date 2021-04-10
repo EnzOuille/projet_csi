@@ -1,0 +1,4 @@
+/vendor/
+/src/conf/conf.ini
+composer.lock
+/.idea/
