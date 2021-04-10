@@ -1,7 +1,7 @@
 <?php
 namespace projet\vue;
 
-class   VueModificationListe extends VuePrincipale{
+class   VueModificationListeGest extends VuePrincipaleGest{
 
     private $liste,$lienAffichageListe, $listItemAfficher;
     public function __construct($tabItems)

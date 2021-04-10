@@ -4,10 +4,10 @@ use Slim\Slim;
 use projet\modele\Item;
 use projet\modele\Liste;
 use projet\vue\VueCreerItem;
-use projet\vue\VueItem;
-use projet\vue\VueModificationItem;
-use projet\vue\VueModificationListe;
-use projet\vue\VueParticipant3;
+use projet\vue\VueItemGest;
+use projet\vue\VueModificationItemGest;
+use projet\vue\VueModificationListeGest;
+use projet\vue\VueParticipant3Gest;
 
 class ItemController{
     /*
@@ -15,7 +15,7 @@ class ItemController{
     */
     public static function afficherItemID($id){
         $item = Item::where("id" , "=" , $id)->first();
-        $vue = new VueItem($item);
+        $vue = new VueItemGest($item);
         $vue->render();
     }
     /*
@@ -23,7 +23,7 @@ class ItemController{
     */
     public static function afficherToutItems(){
         $item = Item::get();
-        $vue = new VueParticipant3($item,null,null, 'TOUT_ITEM');
+        $vue = new VueParticipant3Gest($item,null,null, 'TOUT_ITEM');
         $vue->render();
     }
     /*
@@ -71,7 +71,7 @@ class ItemController{
             }
         }
         $item->save();
-        $vue = new VueItem($item);
+        $vue = new VueItemGest($item);
         $vue->render();
     }
     /*
@@ -79,7 +79,7 @@ class ItemController{
     */
     public static function modifierItemDansListe($id){
         $item = Item::where('id','=',$id)->first();
-        $vue = new VueModificationItem($item);
+        $vue = new VueModificationItemGest($item);
         $vue->render();
     }
     /*
@@ -103,7 +103,7 @@ class ItemController{
 
         $item->save();
 
-        $vue = new VueModificationItem($item);
+        $vue = new VueModificationItemGest($item);
         $vue->render();
     }
     /*

@@ -2,11 +2,11 @@
 
 namespace projet\controller;
 use projet\index;
-use projet\vue\VueListeCree;
+use projet\vue\VueListeCreeGest;
 use projet\modele\Liste;
 use projet\modele\Item;
 use projet\vue\VueImageAjout;
-use projet\vue\VueCreerListe;
+use projet\vue\VueCreerListeGest;
 
 class FormulaireOKController
 {
@@ -37,7 +37,7 @@ class FormulaireOKController
             * ce qui affiche une erreur à la page de création de liste
             */
             if ($date < $dateCourante) {
-                $vue =  new VueCreerListe("erreurDate");
+                $vue =  new VueCreerListeGest("erreurDate");
                 $vue->render();
             } else {
             $titre = filter_var($titre, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -64,7 +64,7 @@ class FormulaireOKController
             $l->token = $tokenGenerated;
             $l->tokenModif = $tokenModifGenerated;
             $res = $l->save();
-            $vue =  new VueListeCree($l);
+            $vue =  new VueListeCreeGest($l);
             $vue->render();
             }
           }

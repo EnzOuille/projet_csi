@@ -2,7 +2,7 @@
 namespace projet\controller;
 use Slim\Slim;
 use projet\modele\Produit;
-use projet\vue\VueProduit;
+use projet\vue\VueProduitGest;
 
 class ProduitController
 {
@@ -13,7 +13,7 @@ class ProduitController
     public static function afficherToutProduits()
     {
         $produits = Produit::get();
-        $vue = new VueProduit($produits);
+        $vue = new VueProduitGest($produits);
         $vue->render();
     }
 

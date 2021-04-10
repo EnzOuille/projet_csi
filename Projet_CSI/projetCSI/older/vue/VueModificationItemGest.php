@@ -4,7 +4,7 @@
 namespace projet\vue;
 
 
-class VueModificationItem extends VuePrincipale
+class VueModificationItemGest extends VuePrincipaleGest
 {
     private $item;
     public function __construct($item)

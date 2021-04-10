@@ -2,10 +2,10 @@
 namespace projet\vue;
 use Slim\Slim;
 
-class VuePrincipale
+class VuePrincipaleGest
 {
     private $app;
-    private $lienAccueil, $lienAfficherUneListe, $lienCreerListe;
+    private $lienAccueil, $lienCli;
     private $URLbootstrapCSS;
     private $URLbootstrapJS;
     private $URLpersoCSS;
@@ -15,8 +15,8 @@ class VuePrincipale
     public function __construct() {
         $this->app = Slim::getInstance();
         $this->lienAfficherProduits = $this->app->urlFor('afficher_produits');
-        $this->lienAccueil = $this->app->urlFor('page_index');
-
+        $this->lienAccueil = $this->app->urlFor('page_index_gest');
+        $this->lienCli = $this->app->urlFor('page_index_cli');
         $this->URLimages = $this->app->request->getRootUri() . '/img/';
         $this->URLbootstrapCSS = $this->app->request->getRootUri() . '/public/bootstrap.css';
         $this->URLbootstrapJS = $this->app->request->getRootUri() . '/public/boostrap.min.js';
@@ -47,9 +47,13 @@ class VuePrincipale
                         </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                       <ul class="navbar-nav ml-auto">
+                                            <li class="nav-item">
+                          <a class="nav-link" href="$this->lienCli">Passer en mode Client</a>
+                      </li>
                       <li class="nav-item">
                           <a class="nav-link" href="$this->lienAccueil">Accueil</a>
                         </li>
+
                         <li class="nav-item">
                           <a class="nav-link" href="$this->lienAfficherProduits">Afficher les produits</a>
                         </li>

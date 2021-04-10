@@ -5,7 +5,7 @@ namespace projet\vue;
 use projet\modele\Item;
 use projet\modele\Liste;
 
-class VueParticipant3 extends VuePrincipale
+class VueParticipant3Gest extends VuePrincipaleGest
 {
 
     private $liste, $typeAff;

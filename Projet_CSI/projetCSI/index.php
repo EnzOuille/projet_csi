@@ -16,11 +16,15 @@ $db->bootEloquent();
 
 $app = new \Slim\Slim();
 
-$app->get('/', function () {
-    IndexController::interfaceAccueil();
-})->name('page_index');
+$app->get('/gestionnaire', function () {
+    IndexController::interfaceAccueilGest();
+})->name('page_index_gest');
 
-$app->get('/produit/afficher',function(){
+$app->get('/client', function () {
+    IndexController::interfaceAccueilCli();
+})->name('page_index_cli');
+
+$app->get('/gestionnaire/produit/afficher',function(){
     ProduitController::afficherToutProduits();
 })->name('afficher_produits');
 

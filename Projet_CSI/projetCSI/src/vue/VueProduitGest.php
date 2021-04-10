@@ -4,7 +4,7 @@
 namespace projet\vue;
 
 
-class VueProduit extends VuePrincipale
+class VueProduitGest extends VuePrincipaleGest
 {
     private $produits;
 

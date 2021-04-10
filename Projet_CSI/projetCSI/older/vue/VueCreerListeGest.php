@@ -2,7 +2,7 @@
 
 namespace projet\vue;
 
-class VueCreerListe extends VuePrincipale {
+class VueCreerListeGest extends VuePrincipaleGest {
 
 
     private $urlListeCree;

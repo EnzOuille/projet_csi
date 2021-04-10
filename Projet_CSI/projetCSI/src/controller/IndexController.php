@@ -3,12 +3,18 @@
 
 namespace projet\controller;
 use projet\index;
-use projet\vue\VueAccueil;
+use projet\vue\VueAccueilGest;
+use projet\vue\VueAccueilCli;
 
 class IndexController
 {
-    public static function interfaceAccueil(){
-        $vue =  new VueAccueil();
+    public static function interfaceAccueilGest(){
+        $vue =  new VueAccueilGest();
+        $vue->render();
+    }
+
+    public static function interfaceAccueilCli(){
+        $vue = new VueAccueilCli();
         $vue->render();
     }
 }

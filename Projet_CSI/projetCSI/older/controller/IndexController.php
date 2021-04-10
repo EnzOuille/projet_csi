@@ -4,13 +4,13 @@
 namespace projet\controller;
 use projet\index;
 use projet\modele\Produit;
-use projet\vue\VueAccueil;
+use projet\vue\VueAccueilGest;
 use projet\vue\VueCompte;
 
 class IndexController
 {
     public static function interfaceListe(){
-        $vue =  new VueAccueil();
+        $vue =  new VueAccueilGest();
         $vue->render();
     }
 

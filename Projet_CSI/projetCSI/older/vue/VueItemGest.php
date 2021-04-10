@@ -3,7 +3,7 @@ namespace projet\vue;
 
 use projet\modele\Item;
 
-class VueItem extends VuePrincipale{
+class VueItemGest extends VuePrincipaleGest{
 
     private $produits;
 

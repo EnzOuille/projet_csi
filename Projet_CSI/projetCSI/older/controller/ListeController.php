@@ -4,9 +4,9 @@ use Slim\Slim;
 use projet\modele\Item;
 use projet\modele\Liste;
 use projet\vue\VueAjoutItem;
-use projet\vue\VueModificationListe;
-use projet\vue\VueParticipant3;
-use projet\vue\VueCreerListe;
+use projet\vue\VueModificationListeGest;
+use projet\vue\VueParticipant3Gest;
+use projet\vue\VueCreerListeGest;
 class ListeController
 {
     /*
@@ -15,7 +15,7 @@ class ListeController
     public static function afficherListe()
     {
         $list = Liste::get();
-        $vue = new VueParticipant3($list, 'ALL_LISTE');
+        $vue = new VueParticipant3Gest($list, 'ALL_LISTE');
         $vue->render();
     }
     /*
@@ -49,7 +49,7 @@ class ListeController
                         }
                     }
                 }
-        $vue = new VueParticipant3($liste,$nombreParticipants,$resultat,'AFFICHER_UNE_LISTE');
+        $vue = new VueParticipant3Gest($liste,$nombreParticipants,$resultat,'AFFICHER_UNE_LISTE');
         $vue->render();
     }
     /*
@@ -57,7 +57,7 @@ class ListeController
     */
     public static function demanderListe(){
         $listes = Liste::where('public','=','1')->get();
-        $vue = new VueParticipant3($listes,null,null,'DEMANDER_UNE_LISTE');
+        $vue = new VueParticipant3Gest($listes,null,null,'DEMANDER_UNE_LISTE');
         $vue->render();
     }
     /*
@@ -67,14 +67,14 @@ class ListeController
     {
         $liste = Liste::where('no', '=', $no)->first();
         $item = $liste->items()->get();
-        $vue = new VueParticipant3($item,null,null, 'ITEM_LISTE');
+        $vue = new VueParticipant3Gest($item,null,null, 'ITEM_LISTE');
         $vue->render();
     }
     /*
     * Affichage de la page correspondant au formulaire d'une création de liste 
     */
     public static function creerListe() {
-        $vue = new VueCreerListe("");
+        $vue = new VueCreerListeGest("");
         $vue->render();
     }
     /*
@@ -82,7 +82,7 @@ class ListeController
     */
     public static function modifierUneListe($tokenModif){
         $liste = Liste::where('tokenModif','=',$tokenModif)->first();
-        $vue = new VueModificationListe($liste);
+        $vue = new VueModificationListeGest($liste);
         $listItem = Item::where('liste_id','=', $liste->no)->get();
         $vue->afficherItems($listItem);
         $vue->render();
@@ -117,7 +117,7 @@ class ListeController
 
         $item->liste_id = $liste->no;
         $item->save();
-        $vue = new VueModificationListe($liste);
+        $vue = new VueModificationListeGest($liste);
         $listItem = Item::where('liste_id','=', $liste->no)->get();
         $vue->afficherItems($listItem);
         $vue->render();
@@ -140,7 +140,7 @@ class ListeController
         $liste->save();
         $liste = Liste::where('tokenModif','=',$tokenModif)->first();
 
-        $vue = new VueModificationListe($liste);
+        $vue = new VueModificationListeGest($liste);
         $listItem = Item::where('liste_id','=', $liste->no)->get();
         $vue->afficherItems($listItem);
         $vue->render();

@@ -3,7 +3,7 @@ namespace projet\vue;
 use projet\modele\Liste;
 use projet\modele\Item;
 use Illuminate\Database\Capsule\Manager as DB;
-class VueListeCree extends VuePrincipale {
+class VueListeCreeGest extends VuePrincipaleGest {
     
     private $url;
     private $liste;
