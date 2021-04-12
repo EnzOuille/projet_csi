@@ -28,4 +28,9 @@ $app->get('/gestionnaire/produit/afficher',function(){
     ProduitController::afficherToutProduits();
 })->name('afficher_produits');
 
+$app->get('/gestionnaire/produit/creer',function(){
+    ProduitController::creerProduit();
+})->name('creer_produits');
+
+
 $app->run();
