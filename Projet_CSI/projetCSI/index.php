@@ -4,6 +4,7 @@ session_start();
 require 'vendor/autoload.php' ;
 use projet\controller\ProduitController;
 use projet\controller\IndexController;
+use projet\controller\LotController;
 use Illuminate\Database\Capsule\Manager as DB;
 require 'vendor/autoload.php';
 
@@ -32,5 +33,8 @@ $app->get('/gestionnaire/produit/creer',function(){
     ProduitController::creerProduit();
 })->name('creer_produits');
 
+$app->get('/gestionnaire/lot/creer',function(){
+    LotController::creerLot();
+})->name('creer_lots');
 
 $app->run();
