@@ -4,25 +4,22 @@
 namespace projet\vue;
 
 
-class VueProduitGest extends VuePrincipaleGest
+class VuePropositionCli extends VuePrincipaleCli
 {
-    private $produits;
+    private $propals;
 
-    public function __construct($produits)
+    public function __construct($propals)
     {
         parent::__construct();
-        $this->produits = $produits;
-        $value = $this->produits;
+        $this->propals = $propals;
+        $value = $this->propals;
     }
 
-    /*
-    * Permet l'affichage de l'item en question selon les différents changements
-    */
-    private function afficherProduits()
+    private function afficherPropals()
     {
         $res = '';
-        foreach ($this->produits as $produit) {
-            $res .= $produit['idproduit'] . ' - ' . $produit['description'] . ' - ' . $produit['type'] . '<br>';
+        foreach ($this->propals as $propal) {
+            $res .= $propal['idproposition'] . ' - ' . $propal['montant'] . ' - ' . $propal['dateproposition'] . ' - ' . $propal['etatpropal'] . ' - ' . $propal['idclient'] . ' - ' . $propal['idlot'] . ' - ' . $propal['datevalidation'] . '<br>';
         }
         return $res;
     }
@@ -31,7 +28,7 @@ class VueProduitGest extends VuePrincipaleGest
     {
         $menu = self::getMenu();
         $footer = self::getFooter();
-        $content = self::afficherProduits();
+        $content = self::afficherPropals();
         $html = "
             $menu
             <div class=\"container h - 100\">

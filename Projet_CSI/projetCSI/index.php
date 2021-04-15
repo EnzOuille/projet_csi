@@ -3,6 +3,7 @@
 session_start();
 require 'vendor/autoload.php' ;
 use projet\controller\ProduitController;
+use projet\controller\PropositionController;
 use projet\controller\IndexController;
 use Illuminate\Database\Capsule\Manager as DB;
 require 'vendor/autoload.php';
@@ -27,5 +28,9 @@ $app->get('/client', function () {
 $app->get('/gestionnaire/produit/afficher',function(){
     ProduitController::afficherToutProduits();
 })->name('afficher_produits');
+
+$app->get('/client/:id/propals',function($id){
+    PropositionController::afficherPropals($id);
+})->name('afficher_propals_client');
 
 $app->run();
