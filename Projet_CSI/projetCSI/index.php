@@ -5,6 +5,7 @@ require 'vendor/autoload.php' ;
 use projet\controller\ProduitController;
 use projet\controller\PropositionController;
 use projet\controller\IndexController;
+use projet\controller\LotController;
 use Illuminate\Database\Capsule\Manager as DB;
 require 'vendor/autoload.php';
 
@@ -32,5 +33,13 @@ $app->get('/gestionnaire/produit/afficher',function(){
 $app->get('/client/:id/propals',function($id){
     PropositionController::afficherPropals($id);
 })->name('afficher_propals_client');
+
+$app->get('/gestionnaire/produit/creer',function(){
+    ProduitController::creerProduit();
+})->name('creer_produits');
+
+$app->get('/gestionnaire/lot/creer',function(){
+    LotController::creerLot();
+})->name('creer_lots');
 
 $app->run();
