@@ -21,10 +21,20 @@ class ProduitController
     /*
     * Créer un produit
     */
-    public static function creerProduit()
+    public static function afficher_creer_produit()
     {
         $vue = new VueCreerProduitGest();
         $vue->render();
+    }
+
+    public static function creer_produit(){
+        $app = Slim::getInstance();
+        $url = $app->urlFor('creer_produit_post');
+        $prod = new Produit();
+        $prod->type = $_POST['creerProduit_type'];
+        $prod->description = $_POST['creerProduit_description'];
+        $prod->save();
+        $app->redirect($url);
     }
 
 }

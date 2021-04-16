@@ -1070,6 +1070,7 @@ sequence|table|16476|16478|5
     </table>
     <table id="43" parent="16" name="produit">
       <ObjectId>16395</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>584</StateNumber>
     </table>

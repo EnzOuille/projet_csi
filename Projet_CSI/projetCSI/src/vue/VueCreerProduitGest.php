@@ -6,18 +6,22 @@ namespace projet\vue;
 
 class VueCreerProduitGest extends VuePrincipaleGest
 {
+    private $url_accueil;
+
     public function __construct()
     {
         parent::__construct();
+        $this->url_accueil = self::getApp()->urlFor('page_index_gest');
     }
 
     public function render()
     {
         $menu = self::getMenu();
         $footer = self::getFooter();
+        echo $this->url_accueil;
         $html = "
             $menu
-            <form class=\"form-horizontal\">
+            <form class=\"form-horizontal\" action='$this->url_accueil' method=\"post\">
             <fieldset>
             
             <!-- Form Name -->
@@ -27,7 +31,7 @@ class VueCreerProduitGest extends VuePrincipaleGest
             <div class=\"form-group\">
               <label class=\"col-md-4 control-label\" for=\"description\">Description</label>  
               <div class=\"col-md-4\">
-              <input id=\"description\" name=\"description\" type=\"text\" placeholder=\"Description du produit\" class=\"form-control input-md\" required=\"\">
+              <input id=\"description\" name=\"creerProduit_description\" type=\"text\" placeholder=\"Description du produit\" class=\"form-control input-md\" required=\"\">
                 
               </div>
             </div>
@@ -36,7 +40,7 @@ class VueCreerProduitGest extends VuePrincipaleGest
             <div class=\"form-group\">
               <label class=\"col-md-4 control-label\" for=\"type\">Type</label>  
               <div class=\"col-md-4\">
-              <input id=\"type\" name=\"type\" type=\"text\" placeholder=\"Type du produit\" class=\"form-control input-md\" required=\"\">
+              <input id=\"type\" name=\"creerProduit_type\" type=\"text\" placeholder=\"Type du produit\" class=\"form-control input-md\" required=\"\">
                 
               </div>
             </div>

@@ -35,8 +35,13 @@ $app->get('/client/:id/propals',function($id){
 })->name('afficher_propals_client');
 
 $app->get('/gestionnaire/produit/creer',function(){
-    ProduitController::creerProduit();
+    ProduitController::afficher_creer_produit();
 })->name('creer_produits');
+
+$app->post('/gestionnaire/produit/creer',function(){
+    echo "<script>console.log('TestPost');</script>";
+    ProduitController::creer_produit();
+})->name('creer_produits_post');
 
 $app->get('/gestionnaire/lot/creer',function(){
     LotController::creerLot();
