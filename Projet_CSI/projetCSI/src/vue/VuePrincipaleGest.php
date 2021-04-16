@@ -17,6 +17,8 @@ class VuePrincipaleGest
         $this->lienAfficherProduits = $this->app->urlFor('afficher_produits');
         $this->lienAccueil = $this->app->urlFor('page_index_gest');
         $this->lienCli = $this->app->urlFor('page_index_cli');
+        $this->lienCreerProduits = $this->app->urlFor('creer_produits');
+        $this->lienCreerLot = $this->app->urlFor('creer_lots');
         $this->URLimages = $this->app->request->getRootUri() . '/img/';
         $this->URLbootstrapCSS = $this->app->request->getRootUri() . '/public/bootstrap.css';
         $this->URLbootstrapJS = $this->app->request->getRootUri() . '/public/boostrap.min.js';
@@ -56,6 +58,14 @@ class VuePrincipaleGest
 
                         <li class="nav-item">
                           <a class="nav-link" href="$this->lienAfficherProduits">Afficher les produits</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                          <a class="nav-link" href="$this->lienCreerProduits">Créer un produit</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                          <a class="nav-link" href="$this->lienCreerLot">Créer un lot</a>
                         </li>
                     <li class="nav-item">
                   </li>

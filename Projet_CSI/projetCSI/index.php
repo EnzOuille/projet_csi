@@ -47,7 +47,7 @@ $app->get('/gestionnaire/lot/creer',function(){
     LotController::afficher_creer_Lot();
 })->name('creer_lots');
 
-$app->get('/gestionnaire/lot/creer',function(){
+$app->post('/gestionnaire/lot/creer',function(){
     LotController::creerLot();
 })->name('creer_lots_post');
 

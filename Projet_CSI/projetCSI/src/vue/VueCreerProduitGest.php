@@ -13,6 +13,7 @@ class VueCreerProduitGest extends VuePrincipaleGest
     public function __construct()
     {
         parent::__construct();
+        $this->url_accueil = self::getApp()->urlFor('page_index_gest');
         $this->url_post = self::getApp()->urlFor('creer_produits_post');
     }
 
@@ -20,7 +21,6 @@ class VueCreerProduitGest extends VuePrincipaleGest
     {
         $menu = self::getMenu();
         $footer = self::getFooter();
-        echo $this->url_accueil;
             $html = <<<END
             $menu
             <form class="form-horizontal" action="$this->url_accueil" method="post">

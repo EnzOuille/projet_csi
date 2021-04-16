@@ -1065,6 +1065,7 @@ sequence|table|16476|16478|5
     </table>
     <table id="42" parent="16" name="lot">
       <ObjectId>16413</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>581</StateNumber>
     </table>
