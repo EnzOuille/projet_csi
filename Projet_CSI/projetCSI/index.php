@@ -39,12 +39,16 @@ $app->get('/gestionnaire/produit/creer',function(){
 })->name('creer_produits');
 
 $app->post('/gestionnaire/produit/creer',function(){
-    echo "<script>console.log('TestPost');</script>";
+    echo 'Coucou';
     ProduitController::creer_produit();
 })->name('creer_produits_post');
 
 $app->get('/gestionnaire/lot/creer',function(){
-    LotController::creerLot();
+    LotController::afficher_creer_Lot();
 })->name('creer_lots');
+
+$app->get('/gestionnaire/lot/creer',function(){
+    LotController::creerLot();
+})->name('creer_lots_post');
 
 $app->run();

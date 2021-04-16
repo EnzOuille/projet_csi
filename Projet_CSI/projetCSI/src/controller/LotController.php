@@ -14,4 +14,6 @@ class LotController
         $vue = new VueCreerLotGest();
         $vue->render();
     }
+
+    public static function
 }

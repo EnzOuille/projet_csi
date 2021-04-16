@@ -4,6 +4,8 @@
 namespace projet\vue;
 
 
+use projet\vue\VuePrincipaleGest;
+
 class VueCreerProduitGest extends VuePrincipaleGest
 {
     private $url_accueil;
@@ -11,7 +13,7 @@ class VueCreerProduitGest extends VuePrincipaleGest
     public function __construct()
     {
         parent::__construct();
-        $this->url_accueil = self::getApp()->urlFor('page_index_gest');
+        $this->url_post = self::getApp()->urlFor('creer_produits_post');
     }
 
     public function render()
@@ -19,43 +21,43 @@ class VueCreerProduitGest extends VuePrincipaleGest
         $menu = self::getMenu();
         $footer = self::getFooter();
         echo $this->url_accueil;
-        $html = "
+            $html = <<<END
             $menu
-            <form class=\"form-horizontal\" action='$this->url_accueil' method=\"post\">
+            <form class="form-horizontal" action="$this->url_accueil" method="post">
             <fieldset>
             
             <!-- Form Name -->
             <legend>Création de produit</legend>
             
             <!-- Text input-->
-            <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\" for=\"description\">Description</label>  
-              <div class=\"col-md-4\">
-              <input id=\"description\" name=\"creerProduit_description\" type=\"text\" placeholder=\"Description du produit\" class=\"form-control input-md\" required=\"\">
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="description">Description</label>  
+              <div class="col-md-4">
+              <input id="description" name="creerProduit_description" type="text" placeholder="Description du produit" class="form-control input-md" required="">
                 
               </div>
             </div>
             
             <!-- Text input-->
-            <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\" for=\"type\">Type</label>  
-              <div class=\"col-md-4\">
-              <input id=\"type\" name=\"creerProduit_type\" type=\"text\" placeholder=\"Type du produit\" class=\"form-control input-md\" required=\"\">
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="type">Type</label>  
+              <div class="col-md-4">
+              <input id="type" name="creerProduit_type" type="text" placeholder="Type du produit" class="form-control input-md" required="">
                 
               </div>
             </div>
             
             <!-- Button -->
-            <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\" for=\"submit\"></label>
-              <div class=\"col-md-4\">
-                <button id=\"submit\" name=\"submit\" class=\"btn btn-primary\">Créer</button>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="submit"></label>
+              <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-primary">Créer</button>
               </div>
             </div>
             </fieldset>
             </form>
             $footer
-        ";
+        END;
         echo $html;
-    }
+        }
 }
