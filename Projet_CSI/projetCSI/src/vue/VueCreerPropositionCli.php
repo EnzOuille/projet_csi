@@ -4,35 +4,26 @@
 namespace projet\vue;
 
 
-class VuePropositionCli extends VuePrincipaleCli
+class VueCreerPropositionCli extends VuePrincipaleCli
 {
-    private $propals;
 
-    public function __construct($propals)
+    private $id,$lot,$urlPost;
+
+    public function __construct()
     {
         parent::__construct();
-        $this->propals = $propals;
-        $value = $this->propals;
-        $this->lienPost = self::getApp()->urlFor('creer_affichage_proposition');
-    }
-
-    private function afficherPropals()
-    {
-        $res = '';
-        foreach ($this->propals as $propal) {
-            $res .= $propal['idproposition'] . ' - ' . $propal['montant'] . ' - ' . $propal['dateproposition'] . ' - ' . $propal['etatpropal'] . ' - ' . $propal['idclient'] . ' - ' . $propal['idlot'] . ' - ' . $propal['datevalidation'] . '<br>';
-        }
-        return $res;
+        $this->id = $_GET['id'];
+        $this->lot = $_GET['lot'];
+        $this->urlPost = self::getApp()->urlFor('creer_proposition');
     }
 
     public function render()
     {
         $menu = self::getMenu();
         $footer = self::getFooter();
-        $content = self::afficherPropals();
         $html = <<<END
             $menu
-            <form class="form-horizontal" method="post" action="">
+            <form class="form-horizontal" method="post" action="$this->urlPost?id=$this->id&lot=$this->lot">
             <fieldset>
             
             <!-- Form Name -->
@@ -50,6 +41,12 @@ class VuePropositionCli extends VuePrincipaleCli
               </div>
             </div>
             
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="submit"></label>
+              <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-primary">Créer</button>
+              </div>
+            </div>
             </fieldset>
             </form>
 

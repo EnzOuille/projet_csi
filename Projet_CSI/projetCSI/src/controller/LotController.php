@@ -6,6 +6,7 @@ use projet\modele\AppartientA;
 use projet\modele\Lot;
 use projet\modele\Produit;
 use projet\vue\VueCompositionGest;
+use projet\vue\VueLotsCli;
 use Slim\Slim;
 use projet\vue\VueCreerLotGest;
 
@@ -85,5 +86,22 @@ class LotController
         $app = Slim::getInstance();
         $url = $app->urlFor('page_index_gest');
         $app->redirect($url);
+    }
+
+    public static function afficherLotsCli($id){
+        $lots = Lot::where('etat','=','en vente')->get()->all();
+        $res = "";
+        foreach( $lots as $lot){
+            $res .= <<<END
+              <div class="form-group">
+              <label class="col-md-4 control-label" for="idlot$lot[idlot]">ID : $lot[idlot] - $lot[description] - Fin : $lot[datefin]</label>
+              <div class="col-md-4">    
+                <a id="singlelink" href="/projet_csi/Projet_CSI/projetCSI/client/$id/propals?id=$id&lot=$lot[idlot]" class="btn btn-primary">Faire une proposition</a>
+              </div>
+            </div>    
+            END;
+        }
+        $vue = new VueLotsCli($res,$id);
+        $vue->render();
     }
 }

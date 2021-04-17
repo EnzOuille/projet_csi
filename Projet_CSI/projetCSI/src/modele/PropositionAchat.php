@@ -3,7 +3,7 @@ namespace projet\modele;
 class PropositionAchat extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'public.propositionachat';
-    protected $primaryKey = 'idProposition';
+    protected $primaryKey = 'idproposition';
     public $timestamps = false;
 
 
