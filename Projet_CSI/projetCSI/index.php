@@ -51,4 +51,12 @@ $app->post('/gestionnaire/lot/creer',function(){
     LotController::creerLot();
 })->name('creer_lots_post');
 
+$app->get('/gestionnaire/lot/composition',function(){
+    LotController::creerComposition();
+})->name('creer_composition');
+
+$app->post('/gestionnaire/lot/composition',function(){
+    LotController::insererComposition();
+})->name('creer_composition_post');
+
 $app->run();
