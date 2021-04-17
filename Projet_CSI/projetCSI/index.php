@@ -31,16 +31,24 @@ $app->get('/gestionnaire/produit/afficher',function(){
     ProduitController::afficherToutProduits();
 })->name('afficher_produits');
 
+// URLS PROPOSITIONS D ACHATS
 $app->get('/client/:id/propals',function($id){
-    PropositionController::afficherPropals($id);
-})->name('afficher_propals_client');
+    PropositionController::creer_affichage_proposition();
+})->name('creer_affichage_proposition');
+
+$app->post('/client/:id/propals',function($id){
+    PropositionController::creer_proposition();
+})->name('creer_proposition');
+
+$app->get('/client/:id/lots',function($id){
+    LotController::afficherLotsCli($id);
+})->name('afficher_lots_client');
 
 $app->get('/gestionnaire/produit/creer',function(){
     ProduitController::afficher_creer_produit();
 })->name('creer_produits');
 
 $app->post('/gestionnaire/produit/creer',function(){
-    echo 'Coucou';
     ProduitController::creer_produit();
 })->name('creer_produits_post');
 
@@ -55,5 +63,14 @@ $app->post('/gestionnaire/lot/creer',function(){
 $app->get('/client/:id', function($id){
     ClientController::afficherCompte($id);
 })->name('afficher_compte_client');
+
+$app->get('/gestionnaire/lot/composition',function(){
+    LotController::creerComposition();
+})->name('creer_composition');
+
+$app->post('/gestionnaire/lot/composition',function(){
+    LotController::insererComposition();
+})->name('creer_composition_post');
+
 
 $app->run();

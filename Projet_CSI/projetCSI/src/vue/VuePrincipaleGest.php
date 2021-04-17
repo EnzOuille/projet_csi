@@ -19,6 +19,7 @@ class VuePrincipaleGest
         $this->lienCli = $this->app->urlFor('page_index_cli');
         $this->lienCreerProduits = $this->app->urlFor('creer_produits');
         $this->lienCreerLot = $this->app->urlFor('creer_lots');
+        $this->lienCreerComposition = $this->app->urlFor('creer_composition');
         $this->URLimages = $this->app->request->getRootUri() . '/img/';
         $this->URLbootstrapCSS = $this->app->request->getRootUri() . '/public/bootstrap.css';
         $this->URLbootstrapJS = $this->app->request->getRootUri() . '/public/boostrap.min.js';
@@ -66,6 +67,10 @@ class VuePrincipaleGest
                         
                         <li class="nav-item">
                           <a class="nav-link" href="$this->lienCreerLot">Créer un lot</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                          <a class="nav-link" href="$this->lienCreerComposition">Créer une composition</a>
                         </li>
                     <li class="nav-item">
                   </li>
