@@ -40,6 +40,14 @@ $app->post('/client/:id/propals',function($id){
     PropositionController::creer_proposition();
 })->name('creer_proposition');
 
+// CONFIRMER PROPOSITION
+$app->get('/client/:id/propals/confirmer',function($id){
+    PropositionController::confirmer_proposition();
+})->name('confirmer_proposition');
+// REFUSER PROPOSITION
+$app->get('/client/:id/propals/refuser',function($id){
+    PropositionController::refuser_proposition();
+})->name('refuser_proposition');
 // AFFICHER PROPOSITION
 $app->get('/client/:id/propals/afficher',function($id){
     PropositionController::afficher_proposition($id);

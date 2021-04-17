@@ -28,7 +28,6 @@ class ProduitController
     }
 
     public static function creer_produit(){
-        echo 'Problème';
         $app = Slim::getInstance();
         $url = $app->urlFor('page_index_gest');
         $prod = new Produit();

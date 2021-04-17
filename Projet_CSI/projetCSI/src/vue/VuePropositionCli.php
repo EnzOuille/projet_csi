@@ -6,12 +6,13 @@ namespace projet\vue;
 
 class VuePropositionCli extends VuePrincipaleCli
 {
-    private $propals;
+    private $propals,$attentes;
 
-    public function __construct($propals)
+    public function __construct($propals,$attentes)
     {
         parent::__construct();
         $this->propals = $propals;
+        $this->attentes = $attentes;
     }
 
     private function afficherPropals()
@@ -23,9 +24,19 @@ class VuePropositionCli extends VuePrincipaleCli
               <label class="col-md-4 control-label" for="idlot$propal[idlot]">ID Lot : $propal[idlot] - $propal[montant] - Date : $propal[dateproposition]</label>
               <div class="col-md-4">    
                 <a id="singlelink" href="/projet_csi/Projet_CSI/projetCSI/client/$propal[idclient]/propals?id=$propal[idclient]&lot=$propal[idlot]" class="btn btn-primary">Modifier Montant</a>
-              </div>
-              </div>    
             END;
+            if (in_array($propal,$this->attentes)){
+                $res .= <<<END
+                    <a class="btn btn-success" id="singlelink" href="/projet_csi/Projet_CSI/projetCSI/client/$propal[idclient]/propals/confirmer?idprop=$propal[idproposition]">Confirmer la vente</a>
+                    <a class="btn btn-danger" id="singlelink" href="/projet_csi/Projet_CSI/projetCSI/client/$propal[idclient]/propals/refuser?idprop=$propal[idproposition]">Refuser la vente</a>
+                END;
+
+            }
+            $res .= <<<END
+            </div>
+            </div> 
+            END;
+
         }
         return $res;
     }

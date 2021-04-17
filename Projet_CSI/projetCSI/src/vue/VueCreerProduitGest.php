@@ -8,7 +8,7 @@ use projet\vue\VuePrincipaleGest;
 
 class VueCreerProduitGest extends VuePrincipaleGest
 {
-    private $url_accueil;
+    private $url_accueil,$url_post;
 
     public function __construct()
     {
@@ -23,7 +23,7 @@ class VueCreerProduitGest extends VuePrincipaleGest
         $footer = self::getFooter();
             $html = <<<END
             $menu
-            <form class="form-horizontal" action="$this->url_accueil" method="post">
+            <form class="form-horizontal" action="$this->url_post" method="post">
             <fieldset>
             
             <!-- Form Name -->

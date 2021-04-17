@@ -51,7 +51,28 @@ class PropositionController
 
     public static function afficher_proposition($id){
         $props = PropositionAchat::where('idclient','=',$id)->get()->all();
-        $vue = new VuePropositionCli($props);
+        $attentes = PropositionAchat::where('idclient','=',$id)->where('etatpropal','=','en validation')->get()->all();
+        $vue = new VuePropositionCli($props,$attentes);
         $vue->render();
+    }
+
+    public static function confirmer_proposition(){
+        $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
+        if($prop->first()){
+            $prop->datevalidation = date('Y-m-d');
+            $prop->save();
+            $app = Slim::getInstance();
+            $url = $app->urlFor('page_index_cli');
+            $app->redirect($url);
+        }
+    }
+
+    public static function refuser_proposition(){
+        $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
+        $prop->datevalidation = '1980-01-01';
+        $prop->save();
+        $app = Slim::getInstance();
+        $url = $app->urlFor('page_index_cli');
+        $app->redirect($url);
     }
 }
