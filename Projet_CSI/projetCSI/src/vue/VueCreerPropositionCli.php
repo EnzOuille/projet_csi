@@ -32,7 +32,7 @@ class VueCreerPropositionCli extends VuePrincipaleCli
             <!-- Text input-->
             <div class="form-group">
               <div class="col-md-4">
-                              ID Client : $_GET[id] <br>
+              ID Client : $_GET[id] <br>
               ID Lot : $_GET[lot] <br>
               </div>
               <label class="col-md-4 control-label" for="textinput">Montant de la proposition</label>  

@@ -39,6 +39,11 @@ $app->post('/client/:id/propals',function($id){
     PropositionController::creer_proposition();
 })->name('creer_proposition');
 
+// AFFICHER PROPOSITION
+$app->get('/client/:id/propals/afficher',function($id){
+    PropositionController::afficher_proposition($id);
+})->name('afficher_propositions_cli');
+
 $app->get('/client/:id/lots',function($id){
     LotController::afficherLotsCli($id);
 })->name('afficher_lots_client');

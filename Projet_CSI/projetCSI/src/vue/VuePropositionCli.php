@@ -12,15 +12,20 @@ class VuePropositionCli extends VuePrincipaleCli
     {
         parent::__construct();
         $this->propals = $propals;
-        $value = $this->propals;
-        $this->lienPost = self::getApp()->urlFor('creer_affichage_proposition');
     }
 
     private function afficherPropals()
     {
         $res = '';
         foreach ($this->propals as $propal) {
-            $res .= $propal['idproposition'] . ' - ' . $propal['montant'] . ' - ' . $propal['dateproposition'] . ' - ' . $propal['etatpropal'] . ' - ' . $propal['idclient'] . ' - ' . $propal['idlot'] . ' - ' . $propal['datevalidation'] . '<br>';
+            $res = <<<END
+              <div class="form-group">
+              <label class="col-md-4 control-label" for="idlot$propal[idlot]">ID Lot : $propal[idlot] - $propal[montant] - Date : $propal[dateproposition]</label>
+              <div class="col-md-4">    
+                <a id="singlelink" href="/projet_csi/Projet_CSI/projetCSI/client/$propal[idclient]/propals?id=$propal[idclient]&lot=$propal[idlot]" class="btn btn-primary">Modifier Montant</a>
+              </div>
+              </div>    
+            END;
         }
         return $res;
     }
@@ -29,26 +34,17 @@ class VuePropositionCli extends VuePrincipaleCli
     {
         $menu = self::getMenu();
         $footer = self::getFooter();
-        $content = self::afficherPropals();
+        $content = $this->afficherPropals();
         $html = <<<END
             $menu
             <form class="form-horizontal" method="post" action="">
             <fieldset>
             
             <!-- Form Name -->
-            <legend>Faire une proposition sur le lot</legend>
+            <legend>Voici les propositions du client</legend>
             
             <!-- Text input-->
-            <div class="form-group">
-              <div class="col-md-4">
-                              ID Client : $_GET[id] <br>
-              ID Lot : $_GET[lot] <br>
-              </div>
-              <label class="col-md-4 control-label" for="textinput">Montant de la proposition</label>  
-              <div class="col-md-4">
-              <input id="textinput" name="montant_propal" type="text" placeholder="500" class="form-control input-md">
-              </div>
-            </div>
+            $content
             
             </fieldset>
             </form>

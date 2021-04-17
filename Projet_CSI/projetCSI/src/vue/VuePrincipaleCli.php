@@ -16,6 +16,7 @@ class VuePrincipaleCli
         $this->app = Slim::getInstance();
         $this->lienAccueil = $this->app->urlFor('page_index_cli');
         $this->lienGest = $this->app->urlFor('page_index_gest');
+        $this->lienLots = $this->app->urlFor('creer_proposition');
         $this->URLimages = $this->app->request->getRootUri() . '/img/';
         $this->URLbootstrapCSS = $this->app->request->getRootUri() . '/public/bootstrap.css';
         $this->URLbootstrapJS = $this->app->request->getRootUri() . '/public/boostrap.min.js';
@@ -38,7 +39,7 @@ class VuePrincipaleCli
             </head>
             <body>
                 <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light shadow    ">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
                   <div class="container">
                     <a class="navbar-brand" href="$this->lienAccueil">Projet CSI</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +53,9 @@ class VuePrincipaleCli
                       <li class="nav-item">
                           <a class="nav-link" href="$this->lienAccueil">Accueil</a>
                       </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/projet_csi/Projet_CSI/projetCSI/client/1/lots">Afficher les lots</a>
+                      </li>                      
                     <li class="nav-item">
                   </li>
                       </ul>
