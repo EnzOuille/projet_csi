@@ -6,6 +6,7 @@ use projet\controller\ProduitController;
 use projet\controller\PropositionController;
 use projet\controller\IndexController;
 use projet\controller\LotController;
+use projet\controller\ClientController;
 use Illuminate\Database\Capsule\Manager as DB;
 require 'vendor/autoload.php';
 
@@ -64,6 +65,10 @@ $app->post('/gestionnaire/lot/creer',function(){
     LotController::creerLot();
 })->name('creer_lots_post');
 
+$app->get('/client/:id', function($id){
+    ClientController::afficherCompte($id);
+})->name('afficher_compte_client');
+
 $app->get('/gestionnaire/lot/composition',function(){
     LotController::creerComposition();
 })->name('creer_composition');
@@ -71,5 +76,6 @@ $app->get('/gestionnaire/lot/composition',function(){
 $app->post('/gestionnaire/lot/composition',function(){
     LotController::insererComposition();
 })->name('creer_composition_post');
+
 
 $app->run();
