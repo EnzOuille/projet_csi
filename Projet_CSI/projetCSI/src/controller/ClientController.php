@@ -4,6 +4,7 @@
 namespace projet\controller;
 
 use Illuminate\Database\Eloquent\Model;
+use projet\modele\Vente;
 use Slim\Slim;
 use projet\modele\Client;
 use projet\vue\VueCompteCli;
@@ -14,7 +15,9 @@ class ClientController
     public static function afficherCompte($id)
     {
         $client = Client::where('idclient', $id)->get()->all();
-        $vue = new VueCompteCli($client);
+        $vente = Vente::select('idvente', 'vente.montant', 'benefice', 'vente.idlot', 'vente.idclient as idclientvente', 'propositionachat.idclient')->join('lot', 'vente.idlot', '=', 'lot.idlot')
+            ->join('propositionachat', 'lot.idlot', '=', 'propositionachat.idlot')->get();
+        $vue = new VueCompteCli($client[0], $vente);
         $vue->render();
     }
 
