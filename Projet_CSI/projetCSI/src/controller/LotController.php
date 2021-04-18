@@ -83,10 +83,8 @@ class LotController
     public static function gerer_lot(){
         var_dump($_POST);
         if(isset($_POST['supprimerlot'])) {
-            echo $_POST['supprimerlot'];
             self::supprimer_lot();
         } else {
-            echo $_POST['forcerlot'];
             self::forcer_lot();
         }
     }
@@ -109,10 +107,7 @@ class LotController
         $db->addConnection($file);
         $db->setAsGlobal();
         $db->bootEloquent();
-        if(isset($_POST['gerer_idlot'])){
-            echo $_POST['gerer_idlot'];
-            $res = $db::select('SELECT supprimer_lot(?)',[$_POST['gerer_idlot']]);
-        }
+        $res = $db::select('SELECT supprimer_lot(?)',[$_POST['gerer_idlot']]);
         $app = Slim::getInstance();
         $url = $app->urlFor('page_index_gest');
         $app->redirect($url);
