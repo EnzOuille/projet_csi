@@ -18,5 +18,14 @@ class ClientController
         $vue->render();
     }
 
+    public static function modifierSoldeCompte($id){
+        echo 'Problème';
+        $app = Slim::getInstance();
+        $url = $app->urlFor('afficher_compte_client', array('id' => $id));
+        $client = Client::find($id);
+        $client->solde = $_POST['nouveausolde'];
+        $client->save();
+        $app->redirect($url);
+    }
 
 }

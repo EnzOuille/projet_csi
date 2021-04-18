@@ -77,6 +77,10 @@ $app->get('/client/:id', function($id){
     ClientController::afficherCompte($id);
 })->name('afficher_compte_client');
 
+$app->post('/client/:id', function($id){
+    ClientController::modifierSoldeCompte($id);
+})->name('modifier_solde_compte_client');
+
 $app->get('/gestionnaire/lot/composition',function(){
     LotController::creerComposition();
 })->name('creer_composition');

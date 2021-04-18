@@ -6,4 +6,8 @@ class Client extends \Illuminate\Database\Eloquent\Model
     protected $primaryKey = 'idclient';
     public $timestamps = false;
 
+    public function setSolde($value)
+    {
+        $this->attributes['solde'] = $value;
+    }
 }
