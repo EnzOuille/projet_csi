@@ -7,8 +7,8 @@ use projet\modele\AppartientA;
 use projet\modele\Lot;
 use projet\modele\Produit;
 use projet\vue\VueCompositionGest;
+use projet\vue\VueGererLot;
 use projet\vue\VueLotsCli;
-use projet\vue\VueSupprimerLot;
 use Slim\Slim;
 use projet\vue\VueCreerLotGest;
 
@@ -68,7 +68,7 @@ class LotController
         $vue->render();
     }
 
-    public static function afficher_supprimerLot(){
+    public static function afficher_gererLot(){
         $lots = Lot::get()->all();
         $options = "";
         foreach ( $lots as $lot ){
@@ -76,8 +76,31 @@ class LotController
                     <option value="$lot[idlot]">IdLot = $lot[idlot] Description : $lot[description]</option>
                 END;
         }
-        $vue = new VueSupprimerLot($options);
+        $vue = new VueGererLot($options);
         $vue -> render();
+    }
+
+    public static function gerer_lot(){
+        var_dump($_POST);
+        if(isset($_POST['supprimerlot'])) {
+            echo $_POST['supprimerlot'];
+            self::supprimer_lot();
+        } else {
+            echo $_POST['forcerlot'];
+            self::forcer_lot();
+        }
+    }
+
+    public static function forcer_lot(){
+        $file = parse_ini_file('src/conf/conf.ini');
+        $db = new DB1();
+        $db->addConnection($file);
+        $db->setAsGlobal();
+        $db->bootEloquent();
+        $res = $db::select('CALL debut_vendre_lot(?)',[$_POST['gerer_idlot']]);
+        $app = Slim::getInstance();
+        $url = $app->urlFor('page_index_gest');
+        $app->redirect($url);
     }
 
     public static function supprimer_lot(){
@@ -86,9 +109,9 @@ class LotController
         $db->addConnection($file);
         $db->setAsGlobal();
         $db->bootEloquent();
-        if(isset($_POST['supprimer_idlot'])){
-            echo $_POST['supprimer_idlot'];
-            $res = $db::select('SELECT supprimer_lot(?)',[$_POST['supprimer_idlot']]);
+        if(isset($_POST['gerer_idlot'])){
+            echo $_POST['gerer_idlot'];
+            $res = $db::select('SELECT supprimer_lot(?)',[$_POST['gerer_idlot']]);
         }
         $app = Slim::getInstance();
         $url = $app->urlFor('page_index_gest');

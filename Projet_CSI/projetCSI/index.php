@@ -93,12 +93,12 @@ $app->post('/gestionnaire/lot/composition',function(){
     LotController::insererComposition();
 })->name('creer_composition_post');
 
-$app->get('/gestionnaire/lot/supprimer',function(){
-    LotController::afficher_supprimerLot();
-})->name('supprimer_lot');
+$app->get('/gestionnaire/lot/gerer',function(){
+    LotController::afficher_gererLot();
+})->name('gerer_lot');
 
-$app->post('/gestionnaire/lot/supprimer',function(){
-    LotController::supprimer_lot();
-})->name('supprimer_lot_post');
+$app->post('/gestionnaire/lot/gerer',function(){
+    LotController::gerer_lot();
+})->name('gerer_lot_post');
 
 $app->run();
