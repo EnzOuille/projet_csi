@@ -5,7 +5,7 @@ use Slim\Slim;
 class VuePrincipaleCli
 {
     private $app;
-    private $lienAccueil, $lienGest;
+    private $lienAccueil, $lienGest,$lienPropals;
     private $URLbootstrapCSS;
     private $URLbootstrapJS;
     private $URLpersoCSS;
@@ -17,6 +17,7 @@ class VuePrincipaleCli
         $this->lienAccueil = $this->app->urlFor('page_index_cli');
         $this->lienGest = $this->app->urlFor('page_index_gest');
         $this->lienLots = $this->app->urlFor('creer_proposition');
+        $this->lienPropals = '/projet_csi/Projet_CSI/projetCSI/client/1/propals/afficher';
         $this->URLimages = $this->app->request->getRootUri() . '/img/';
         $this->URLbootstrapCSS = $this->app->request->getRootUri() . '/public/bootstrap.css';
         $this->URLbootstrapJS = $this->app->request->getRootUri() . '/public/boostrap.min.js';
@@ -52,6 +53,9 @@ class VuePrincipaleCli
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="$this->lienAccueil">Accueil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="$this->lienPropals">Afficher les propositions</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="/projet_csi/Projet_CSI/projetCSI/client/1/lots">Afficher les lots</a>

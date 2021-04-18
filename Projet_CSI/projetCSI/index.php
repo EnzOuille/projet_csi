@@ -41,11 +41,11 @@ $app->post('/client/:id/propals',function($id){
 })->name('creer_proposition');
 
 // CONFIRMER PROPOSITION
-$app->get('/client/:id/propals/confirmer',function($id){
+$app->get('/client/:id/propals/confirmer',function(){
     PropositionController::confirmer_proposition();
 })->name('confirmer_proposition');
 // REFUSER PROPOSITION
-$app->get('/client/:id/propals/refuser',function($id){
+$app->get('/client/:id/propals/refuser',function(){
     PropositionController::refuser_proposition();
 })->name('refuser_proposition');
 // AFFICHER PROPOSITION

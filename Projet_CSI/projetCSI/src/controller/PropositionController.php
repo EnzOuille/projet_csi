@@ -6,9 +6,11 @@ namespace projet\controller;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use projet\modele\PropositionAchat;
 use projet\vue\VueCreerPropositionCli;
 use projet\vue\VuePropositionCli;
+use Illuminate\Database\Capsule\Manager as DB1;
 use Slim\Slim;
 
 class PropositionController
@@ -57,10 +59,16 @@ class PropositionController
     }
 
     public static function confirmer_proposition(){
+        $file = parse_ini_file('src/conf/conf.ini');
+        $db = new DB1();
+        $db->addConnection($file);
+        $db->setAsGlobal();
+        $db->bootEloquent();
         $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
         if($prop->first()){
             $prop->datevalidation = date('Y-m-d');
             $prop->save();
+            $result = $db::select('SELECT modify_props(?)',[$prop->idlot]);
             $app = Slim::getInstance();
             $url = $app->urlFor('page_index_cli');
             $app->redirect($url);
@@ -68,9 +76,18 @@ class PropositionController
     }
 
     public static function refuser_proposition(){
+        $file = parse_ini_file('src/conf/conf.ini');
+        $db = new DB1();
+        $db->addConnection($file);
+        $db->setAsGlobal();
+        $db->bootEloquent();
         $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
         $prop->datevalidation = '1980-01-01';
         $prop->save();
+        $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
+        if($prop->etatpropal = 'rejetee'){
+            $result = $db::select('SELECT deuxieme_propal(?)',[$prop->idlot]);
+        }
         $app = Slim::getInstance();
         $url = $app->urlFor('page_index_cli');
         $app->redirect($url);
