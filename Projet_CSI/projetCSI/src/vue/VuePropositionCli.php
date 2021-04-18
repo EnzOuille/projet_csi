@@ -20,7 +20,7 @@ class VuePropositionCli extends VuePrincipaleCli
     {
         $res = '';
         foreach ($this->propals as $propal) {
-            $res = <<<END
+            $res .= <<<END
               <div class="form-group">
               <label class="col-md-4 control-label" for="idlot$propal[idlot]">ID Lot : $propal[idlot] - $propal[montant] - Date : $propal[dateproposition]</label>
               <div class="col-md-4">    
