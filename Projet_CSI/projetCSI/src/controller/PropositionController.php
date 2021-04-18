@@ -25,7 +25,7 @@ class PropositionController
     public static function creer_proposition(){
         try
         {
-            $prop = PropositionAchat::where('idlot','=',$_GET['lot'])->where('idclient','=',$_GET['id'])->get()->first();
+            $prop = PropositionAchat::where('idlot','=',$_GET['lot'])->where('idclient','=',$_GET['id'])->get();
             if ($prop->first()){
                 $prop->montant = $_POST['montant_propal'];
                 $prop->save();
@@ -54,7 +54,8 @@ class PropositionController
     public static function afficher_proposition($id){
         $props = PropositionAchat::where('idclient','=',$id)->get()->all();
         $attentes = PropositionAchat::where('idclient','=',$id)->where('etatpropal','=','en validation')->get()->all();
-        $vue = new VuePropositionCli($props,$attentes);
+        $props_patientes = PropositionAchat::where('idclient','=',$id)->where('etatpropal','=','en attente')->get()->all();
+        $vue = new VuePropositionCli($props,$attentes,$props_patientes);
         $vue->render();
     }
 
@@ -87,6 +88,21 @@ class PropositionController
         $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
         if($prop->etatpropal = 'rejetee'){
             $result = $db::select('SELECT deuxieme_propal(?)',[$prop->idlot]);
+        }
+        $app = Slim::getInstance();
+        $url = $app->urlFor('page_index_cli');
+        $app->redirect($url);
+    }
+
+    public static function supprimer_proposition(){
+        $file = parse_ini_file('src/conf/conf.ini');
+        $db = new DB1();
+        $db->addConnection($file);
+        $db->setAsGlobal();
+        $db->bootEloquent();
+        if(isset($_GET['id']) && isset($_GET['lot'])){
+            $prop = PropositionAchat::where('idclient','=',$_GET['id'])->where('idlot','=',$_GET['lot'])->get()->first();
+            $prop->delete();
         }
         $app = Slim::getInstance();
         $url = $app->urlFor('page_index_cli');

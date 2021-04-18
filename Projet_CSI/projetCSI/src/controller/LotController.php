@@ -1,12 +1,14 @@
 <?php
 namespace projet\controller;
 
+use Illuminate\Database\Capsule\Manager as DB1;
 use Illuminate\Database\Eloquent\Model;
 use projet\modele\AppartientA;
 use projet\modele\Lot;
 use projet\modele\Produit;
 use projet\vue\VueCompositionGest;
 use projet\vue\VueLotsCli;
+use projet\vue\VueSupprimerLot;
 use Slim\Slim;
 use projet\vue\VueCreerLotGest;
 
@@ -65,6 +67,34 @@ class LotController
         $vue = new VueCompositionGest($options,$produits);
         $vue->render();
     }
+
+    public static function afficher_supprimerLot(){
+        $lots = Lot::get()->all();
+        $options = "";
+        foreach ( $lots as $lot ){
+            $options .= <<<END
+                    <option value="$lot[idlot]">IdLot = $lot[idlot] Description : $lot[description]</option>
+                END;
+        }
+        $vue = new VueSupprimerLot($options);
+        $vue -> render();
+    }
+
+    public static function supprimer_lot(){
+        $file = parse_ini_file('src/conf/conf.ini');
+        $db = new DB1();
+        $db->addConnection($file);
+        $db->setAsGlobal();
+        $db->bootEloquent();
+        if(isset($_POST['supprimer_idlot'])){
+            echo $_POST['supprimer_idlot'];
+            $res = $db::select('SELECT supprimer_lot(?)',[$_POST['supprimer_idlot']]);
+        }
+        $app = Slim::getInstance();
+        $url = $app->urlFor('page_index_gest');
+        $app->redirect($url);
+    }
+
 
     public static function insererComposition(){
         $prods = Produit::select('idproduit')->get()->all();

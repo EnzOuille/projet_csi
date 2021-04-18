@@ -48,6 +48,10 @@ $app->get('/client/:id/propals/confirmer',function(){
 $app->get('/client/:id/propals/refuser',function(){
     PropositionController::refuser_proposition();
 })->name('refuser_proposition');
+// SUPPRIMER PROPOSITION
+$app->get('/client/:id/propals/supprimer',function(){
+    PropositionController::supprimer_proposition();
+})->name('supprimer_proposition');
 // AFFICHER PROPOSITION
 $app->get('/client/:id/propals/afficher',function($id){
     PropositionController::afficher_proposition($id);
@@ -89,5 +93,12 @@ $app->post('/gestionnaire/lot/composition',function(){
     LotController::insererComposition();
 })->name('creer_composition_post');
 
+$app->get('/gestionnaire/lot/supprimer',function(){
+    LotController::afficher_supprimerLot();
+})->name('supprimer_lot');
+
+$app->post('/gestionnaire/lot/supprimer',function(){
+    LotController::supprimer_lot();
+})->name('supprimer_lot_post');
 
 $app->run();
