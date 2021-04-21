@@ -18,6 +18,7 @@ class VuePrincipaleCli
         $this->lienGest = $this->app->urlFor('page_index_gest');
         $this->lienLots = $this->app->urlFor('creer_proposition');
         $this->lienPropals = '/projet_csi/Projet_CSI/projetCSI/client/1/propals/afficher';
+        $this->lienAfficherCompte = '/projet_csi/Projet_CSI/projetCSI/client/1';
         $this->URLimages = $this->app->request->getRootUri() . '/img/';
         $this->URLbootstrapCSS = $this->app->request->getRootUri() . '/public/bootstrap.css';
         $this->URLbootstrapJS = $this->app->request->getRootUri() . '/public/boostrap.min.js';
@@ -55,6 +56,8 @@ class VuePrincipaleCli
                           <a class="nav-link" href="$this->lienAccueil">Accueil</a>
                       </li>
                       <li class="nav-item">
+                          <a class="nav-link" href="$this->lienAfficherCompte">Afficher le compte</a>
+                      </li>
                           <a class="nav-link" href="$this->lienPropals">Afficher les propositions</a>
                       </li>
                       <li class="nav-item">

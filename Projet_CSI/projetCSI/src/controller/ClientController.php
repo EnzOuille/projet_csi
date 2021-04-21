@@ -3,8 +3,10 @@
 
 namespace projet\controller;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use projet\modele\Vente;
+use projet\vue\VueMessageCli;
 use Slim\Slim;
 use projet\modele\Client;
 use projet\vue\VueCompteCli;
@@ -22,13 +24,19 @@ class ClientController
     }
 
     public static function modifierSoldeCompte($id){
-        echo 'Problème';
-        $app = Slim::getInstance();
-        $url = $app->urlFor('afficher_compte_client', array('id' => $id));
-        $client = Client::find($id);
-        $client->solde = $_POST['nouveausolde'];
-        $client->save();
-        $app->redirect($url);
+        try{
+            $app = Slim::getInstance();
+            $url = $app->urlFor('afficher_compte_client', array('id' => $id));
+            $client = Client::find($id);
+            $client->solde = $_POST['nouveausolde'];
+            $client->save();
+            $app->redirect($url);
+        }
+        catch(Exception $e)
+        {
+            $vue = new VueMessageCli($e->getMessage());
+            $vue->render();
+        }
     }
 
 }

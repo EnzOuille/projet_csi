@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use projet\modele\PropositionAchat;
 use projet\vue\VueCreerPropositionCli;
+use projet\vue\VueMessageCli;
+use projet\vue\VueMessageGest;
 use projet\vue\VuePropositionCli;
 use Illuminate\Database\Capsule\Manager as DB1;
 use Slim\Slim;
@@ -39,16 +41,14 @@ class PropositionController
                 $prop->idlot = $_GET['lot'];
                 $prop->save();
             }
-
+            $vue = new VueMessageCli('La proposition a bien étée créée.<br><br>Veuillez cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
         }
         catch(Exception $e)
         {
-            dd($e->getMessage());
+            $vue = new VueMessageCli($e->getMessage());
+            $vue->render();
         }
-
-        $app = Slim::getInstance();
-        $url = $app->urlFor('page_index_cli');
-        $app->redirect($url);
     }
 
     public static function afficher_proposition($id){
@@ -60,52 +60,64 @@ class PropositionController
     }
 
     public static function confirmer_proposition(){
-        $file = parse_ini_file('src/conf/conf.ini');
-        $db = new DB1();
-        $db->addConnection($file);
-        $db->setAsGlobal();
-        $db->bootEloquent();
-        $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
-        if($prop->first()){
-            $prop->datevalidation = date('Y-m-d');
-            $prop->save();
-            $result = $db::select('SELECT modify_props(?)',[$prop->idlot]);
-            $app = Slim::getInstance();
-            $url = $app->urlFor('page_index_cli');
-            $app->redirect($url);
+        try{
+            $file = parse_ini_file('src/conf/conf.ini');
+            $db = new DB1();
+            $db->addConnection($file);
+            $db->setAsGlobal();
+            $db->bootEloquent();
+            $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
+            if($prop->first()){
+                $prop->datevalidation = date('Y-m-d');
+                $prop->save();
+                $result = $db::select('SELECT modify_props(?)',[$prop->idlot]);
+            }
+            $vue = new VueMessageCli('La confirmation de la proposition a bien étée pris en compte.<br><br>Veuillez cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
+        }catch(Exception $e){
+            $vue = new VueMessageCli($e->getMessage());
+            $vue->render();
         }
     }
 
     public static function refuser_proposition(){
-        $file = parse_ini_file('src/conf/conf.ini');
-        $db = new DB1();
-        $db->addConnection($file);
-        $db->setAsGlobal();
-        $db->bootEloquent();
-        $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
-        $prop->datevalidation = '1980-01-01';
-        $prop->save();
-        $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
-        if($prop->etatpropal = 'rejetee'){
-            $result = $db::select('SELECT deuxieme_propal(?)',[$prop->idlot]);
+        try{
+            $file = parse_ini_file('src/conf/conf.ini');
+            $db = new DB1();
+            $db->addConnection($file);
+            $db->setAsGlobal();
+            $db->bootEloquent();
+            $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
+            $prop->datevalidation = '1980-01-01';
+            $prop->save();
+            $prop = PropositionAchat::where('idproposition','=',$_GET['idprop'])->get()->first();
+            if($prop->etatpropal = 'rejetee'){
+                $result = $db::select('SELECT deuxieme_propal(?)',[$prop->idlot]);
+            }
+            $vue = new VueMessageCli('La proposition a bien étée refusée.<br><br>Veuillez cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
+        }catch(Exception $e){
+            $vue = new VueMessageCli($e->getMessage());
+            $vue->render();
         }
-        $app = Slim::getInstance();
-        $url = $app->urlFor('page_index_cli');
-        $app->redirect($url);
     }
 
     public static function supprimer_proposition(){
-        $file = parse_ini_file('src/conf/conf.ini');
-        $db = new DB1();
-        $db->addConnection($file);
-        $db->setAsGlobal();
-        $db->bootEloquent();
-        if(isset($_GET['id']) && isset($_GET['lot'])){
-            $prop = PropositionAchat::where('idclient','=',$_GET['id'])->where('idlot','=',$_GET['lot'])->get()->first();
-            $prop->delete();
+        try{
+            $file = parse_ini_file('src/conf/conf.ini');
+            $db = new DB1();
+            $db->addConnection($file);
+            $db->setAsGlobal();
+            $db->bootEloquent();
+            if(isset($_GET['id']) && isset($_GET['lot'])){
+                $prop = PropositionAchat::where('idclient','=',$_GET['id'])->where('idlot','=',$_GET['lot'])->get()->first();
+                $prop->delete();
+            }
+            $vue = new VueMessageCli('La proposition a bien étée supprimée.<br><br>Veuillez cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
+        }catch(Exception $e){
+            $vue = new VueMessageCli($e->getMessage());
+            $vue->render();
         }
-        $app = Slim::getInstance();
-        $url = $app->urlFor('page_index_cli');
-        $app->redirect($url);
     }
 }

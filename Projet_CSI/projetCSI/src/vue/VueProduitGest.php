@@ -22,7 +22,7 @@ class VueProduitGest extends VuePrincipaleGest
     {
         $res = '';
         foreach ($this->produits as $produit) {
-            $res .= $produit['idproduit'] . ' - ' . $produit['description'] . ' - ' . $produit['type'] . '<br>';
+            $res .= $produit['idproduit'] . ' - ' . $produit['description'] . ' - ' . $produit['type'] . '<br><br>';
         }
         return $res;
     }
@@ -37,6 +37,7 @@ class VueProduitGest extends VuePrincipaleGest
             <div class=\"container h - 100\">
                 <div class=\"row h - 100 align - items - center\">
                    <div class=\"col - 12 text - center\">
+                    <br>
                         $content
                    </div>
                 </div>

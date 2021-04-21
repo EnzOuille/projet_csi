@@ -77,6 +77,10 @@ class VuePrincipaleGest
                         <li class="nav-item">
                           <a class="nav-link" href="$this->lienCreerComposition">Créer une composition</a>
                         </li>
+                        
+                        <li class="nav-item">
+                          <a class="nav-link" href="$this->lienGererLot">Gérer un lot</a>
+                        </li>
                     <li class="nav-item">
                   </li>
                       </ul>

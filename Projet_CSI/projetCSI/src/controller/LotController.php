@@ -1,6 +1,7 @@
 <?php
 namespace projet\controller;
 
+use Exception;
 use Illuminate\Database\Capsule\Manager as DB1;
 use Illuminate\Database\Eloquent\Model;
 use projet\modele\AppartientA;
@@ -9,6 +10,7 @@ use projet\modele\Produit;
 use projet\vue\VueCompositionGest;
 use projet\vue\VueGererLot;
 use projet\vue\VueLotsCli;
+use projet\vue\VueMessageGest;
 use Slim\Slim;
 use projet\vue\VueCreerLotGest;
 
@@ -24,16 +26,21 @@ class LotController
     }
 
     public static function creerLot(){
-        $app = Slim::getInstance();
-        $url = $app->urlFor('page_index_gest');
-        $lot = new Lot();
-        $lot->description = $_POST['creerlot_description'];
-        $lot->prixestime = $_POST['creerlot_prixestime'];
-        $lot->prixminimal = $_POST['creerlot_prixminimal'];
-        $lot->datedebut = $_POST['creerlot_datedebut'];
-        $lot->datefin = $_POST['creerlot_datefin'];
-        $lot->save();
-        $app->redirect($url);
+
+        try{
+            $lot = new Lot();
+            $lot->description = $_POST['creerlot_description'];
+            $lot->prixestime = $_POST['creerlot_prixestime'];
+            $lot->prixminimal = $_POST['creerlot_prixminimal'];
+            $lot->datedebut = $_POST['creerlot_datedebut'];
+            $lot->datefin = $_POST['creerlot_datefin'];
+            $lot->save();
+            $vue = new VueMessageGest('Le lot a bien été créé.<br><br>Cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
+        }catch (Exception $e){
+            $vue = new VueMessageGest($e->getMessage());
+            $vue->render();
+        }
     }
 
     public static function creerComposition(){
@@ -44,7 +51,6 @@ class LotController
                     <option value="$lot[idlot]">IdLot = $lot[idlot]</option>
                 END;
         }
-
         $prods = Produit::get()->all();
         $produits = "";
         foreach ( $prods as $prod){
@@ -90,50 +96,62 @@ class LotController
     }
 
     public static function forcer_lot(){
-        $file = parse_ini_file('src/conf/conf.ini');
-        $db = new DB1();
-        $db->addConnection($file);
-        $db->setAsGlobal();
-        $db->bootEloquent();
-        $res = $db::select('CALL debut_vendre_lot(?)',[$_POST['gerer_idlot']]);
-        $app = Slim::getInstance();
-        $url = $app->urlFor('page_index_gest');
-        $app->redirect($url);
+        try{
+            $file = parse_ini_file('src/conf/conf.ini');
+            $db = new DB1();
+            $db->addConnection($file);
+            $db->setAsGlobal();
+            $db->bootEloquent();
+            $res = $db::select('CALL debut_vendre_lot(?)',[$_POST['gerer_idlot']]);
+            $vue = new VueMessageGest('Le lot a bien été forcé à la vente.<br><br>Cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
+        }catch (Exception $e){
+            $vue = new VueMessageGest($e->getMessage());
+            $vue->render();
+        }
+
     }
 
     public static function supprimer_lot(){
-        $file = parse_ini_file('src/conf/conf.ini');
-        $db = new DB1();
-        $db->addConnection($file);
-        $db->setAsGlobal();
-        $db->bootEloquent();
-        $res = $db::select('SELECT supprimer_lot(?)',[$_POST['gerer_idlot']]);
-        $app = Slim::getInstance();
-        $url = $app->urlFor('page_index_gest');
-        $app->redirect($url);
+        try{
+            $file = parse_ini_file('src/conf/conf.ini');
+            $db = new DB1();
+            $db->addConnection($file);
+            $db->setAsGlobal();
+            $db->bootEloquent();
+            $res = $db::select('SELECT supprimer_lot(?)',[$_POST['gerer_idlot']]);
+            $vue = new VueMessageGest('Le lot a bien été supprimé.<br><br>Cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
+        }catch (Exception $e){
+            $vue = new VueMessageGest($e->getMessage());
+            $vue->render();
+        }
     }
 
 
     public static function insererComposition(){
-        $prods = Produit::select('idproduit')->get()->all();
-        if (isset($_POST['composition_idlot'])){
-            $idLot = $_POST['composition_idlot'];
-        }
-        foreach ( $prods as $prod){
-            if (isset($_POST['composition_' . $prod['idproduit']])){
-                if ($_POST['composition_' . $prod['idproduit']] > 0){
-                    echo $_POST['composition_' . $prod['idproduit']];
-                    $comp = new AppartientA();
-                    $comp->idproduit = (int)$prod['idproduit'];
-                    $comp->quantite = $_POST['composition_' . $prod['idproduit']];
-                    $comp->idlot = (int)$idLot;
-                    $comp->save();
+        try{
+            $prods = Produit::select('idproduit')->get()->all();
+            if (isset($_POST['composition_idlot'])){
+                $idLot = $_POST['composition_idlot'];
+            }
+            foreach ( $prods as $prod){
+                if (isset($_POST['composition_' . $prod['idproduit']])){
+                    if ($_POST['composition_' . $prod['idproduit']] > 0){
+                        $comp = new AppartientA();
+                        $comp->idproduit = (int)$prod['idproduit'];
+                        $comp->quantite = $_POST['composition_' . $prod['idproduit']];
+                        $comp->idlot = (int)$idLot;
+                        $comp->save();
+                    }
                 }
             }
+            $vue = new VueMessageGest('La composition du lot a bien étée créée.<br><br>Veuillez cliquez sur les boutons ci-dessus pour naviguer sur le site');
+            $vue->render();
+        }catch(Exception $e){
+            $vue = new VueMessageGest($e->getMessage());
+            $vue->render();
         }
-        $app = Slim::getInstance();
-        $url = $app->urlFor('page_index_gest');
-        $app->redirect($url);
     }
 
     public static function afficherLotsCli($id){

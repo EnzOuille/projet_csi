@@ -180,40 +180,6 @@ end
 $$
 LANGUAGE plpgsql;
 
-/**CREATE OR REPLACE FUNCTION trigger_update_date() RETURNS TRIGGER AS $trigger_update_date$
-DECLARE
-    etat char(50);
-    etatLot char(50);
-    dateAtt date;
-    res char(50);
-BEGIN
-    SELECT into etat PropositionAchat.etatPropal FROM PropositionAchat WHERE idProposition = NEW.idProposition;
-    SELECT into etatLot Lot.etat FROM Lot INNER JOIN PropositionAchat PA on Lot.idLot = PA.idLot WHERE Lot.idLot = NEW.idLot;
-    SELECT into dateAtt dateAttente FROM Lot INNER JOIN PropositionAchat PA on Lot.idLot = PA.idLot WHERE Lot.idLot = NEW.idLot;
-    if etat = 'en validation' AND etatLot = 'en attente' then
-        if NEW.dateValidation - dateAtt < 1 AND NEW.dateValidation - dateAtt >= 0 then
-            select into res creer_vente(NEW.idlot,NEW.idProposition);
-            UPDATE Lot SET etat = 'vendu' WHERE idLot = NEW.idLot;
-            NEW.etatPropal = 'acceptée';
-            ALTER TABLE PropositionAchat DISABLE TRIGGER trigger_update_propAchat;
-            ALTER TABLE PropositionAchat DISABLE TRIGGER trigger_update_date;
-            SET session_replication_role = replica;
-            UPDATE PropositionAchat SET etatPropal = 'refusee' WHERE idLot = NEW.idLot;
-            ALTER TABLE PropositionAchat ENABLE TRIGGER trigger_update_propAchat;
-            ALTER TABLE PropositionAchat ENABLE TRIGGER trigger_update_date;
-            SET session_replication_role = DEFAULT;
-            update lot set dateattente = current_date where idlot = new.idLot;
-        else
-            update propositionachat set etatPropal = 'refusee' where idproposition = new.idProposition;
-        end if;
-    end if;
-    return new;
-end;
-$trigger_update_date$
-language plpgsql;**/
-SELECT idProposition FROM PropositionAchat
-Where montant = (SELECT Max(montant) FROM PropositionAchat where idlot = 1 AND etatPropal !='rejetee') AND idLot = 1 AND etatPropal != 'rejetee';
-
 create or replace function deuxieme_propal(param_idlot int) returns text as $$
 declare
 idprop int;
@@ -231,8 +197,6 @@ return 'tout bon';
 end;
 $$
 language plpgsql;
-/**CREATE TRIGGER trigger_update_date BEFORE UPDATE ON PropositionAchat
-    FOR EACH ROW EXECUTE PROCEDURE trigger_update_date();**/
 
 CREATE OR REPLACE PROCEDURE debut_vendre_lot(param_idlot integer) AS $$
 DECLARE

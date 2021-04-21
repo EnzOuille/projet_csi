@@ -63,7 +63,6 @@ class ItemController{
             $textImg = filter_var($textImg, FILTER_SANITIZE_SPECIAL_CHARS);
             $item = Item::where("id" , "=" , $_SESSION['idItemActuel'])->first();
             $item->img = 'imageWeb.jpg';
-            $lienVersImageWeb = $app->request->getRootUri() . '/img/' . '/imageWeb.jpg';
             $fichier = $_SERVER['DOCUMENT_ROOT']. $lienVersImageWeb;
             copy($textImg, $fichier);
             $item->save();
